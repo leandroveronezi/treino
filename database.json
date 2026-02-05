@@ -67,6 +67,62 @@
     {
       "name": "Barras Paralelas",
       "img": "imagens/barras-paralelas.gif"
+    },
+    {
+      "name": "Supino Fechado (Barra)",
+      "img": "imagens/supino-fechado-com-barra.gif"
+    },
+    {
+      "name": "Supino Fechado (Halteres)",
+      "img": "imagens/supino-fechado-com-halteres.gif"
+    },
+    {
+      "name": "Supino no Cross",
+      "img": "imagens/supino-no-cross.gif"
+    },
+    {
+      "name": "Supino Pegada Fechada",
+      "img": "imagens/supino-pegada-fechada.gif"
+    },
+    {
+      "name": "Supino na Máquina Articulada",
+      "img": "imagens/supino-na-maquina-articulada.gif"
+    },
+    {
+      "name": "Crucifixo Invertido Unilateral",
+      "img": "imagens/crucifixo-invertido-unilateral.gif"
+    },
+    {
+      "name": "Pullover (Banco Perpendicular)",
+      "img": "imagens/pullover-com-banco-na-perpendicular.gif"
+    },
+    {
+      "name": "Pullover (Barra)",
+      "img": "imagens/pullover-com-barra.gif"
+    },
+    {
+      "name": "Pullover (Braços Flexionados)",
+      "img": "imagens/pullover-com-bracos-flexionados-na-descida.gif"
+    },
+    {
+      "name": "Pullover (Máquina)",
+      "img": "imagens/pullover-na-maquina.gif"
+    },
+    {
+      "name": "Pullover (Polia Alta)",
+      "img": "imagens/pullover-na-polia-alta-pull-down.jpg"
+    },
+    {
+      "name": "Pullover (Polia Baixa)",
+      "img": "imagens/pullover-na-polia-baixa-no-cross.gif"
+    },
+    {
+      "name": "Pullover (Banco Declinado)",
+      "img": "imagens/pullover-no-banco-declinado.gif"
+    },
+    {
+      "name": "Pullover para Peitoral",
+      "img": "imagens/pullover-para-o-peitoral.gif"
     }
   ],
   "costas": [
@@ -119,8 +175,8 @@
       "img": "imagens/remada-cavalinho.webp"
     },
     {
-      "name": "Remada Unilateral",
-      "img": "imagens/remada-unilateral.webp"
+      "name": "Remada Unilateral (Serrote)",
+      "img": "imagens/remada-unilateral-serrote.gif"
     },
     {
       "name": "Levantamento Terra",
@@ -128,7 +184,7 @@
     },
     {
       "name": "Levantamento Terra (Barra Hexagonal)",
-      "img": "imagens/levantamento-terra-com-barra-hexagonal-trap-bar-.gif"
+      "img": "imagens/levantamento-terra-com-barra-hexagonal-trap-bar.gif"
     },
     {
       "name": "Levantamento Terra (Halteres)",
@@ -144,7 +200,7 @@
     },
     {
       "name": "Levantamento Terra (Parcial - Rack Pull)",
-      "img": "imagens/levantamento-terra-parcial-rack-pull-.gif"
+      "img": "imagens/levantamento-terra-parcial-rack-pull.gif"
     },
     {
       "name": "Levantamento Terra (Romeno)",
@@ -157,9 +213,33 @@
     {
       "name": "Hiperextensão",
       "img": "imagens/hiperextensao.gif"
+    },
+    {
+      "name": "Remada Alta",
+      "img": "imagens/remada-alta.webp"
+    },
+    {
+      "name": "Puxada Unilateral",
+      "img": "imagens/puxada-unilateral.gif"
+    },
+    {
+      "name": "Pullover para Costas",
+      "img": "imagens/pullover-para-as-costas.gif"
+    },
+    {
+      "name": "Levantamento Terra Unilateral",
+      "img": "imagens/levantamento-terra-unilateral.gif"
+    },
+    {
+      "name": "Gachamento Livre Frontal",
+      "img": "imagens/gachamento-livre-frontal.gif"
     }
   ],
   "pernas": [
+    {
+      "name": "Agachamento Unilateral",
+      "img": "imagens/agachamento-unilateral.gif"
+    },
     {
       "name": "Agachamento (Smith)",
       "img": "imagens/agachamento-smith.gif"
@@ -170,7 +250,7 @@
     },
     {
       "name": "Leg Press 45",
-      "img": "imagens/leg-press-45-.gif"
+      "img": "imagens/leg-press-45.gif"
     },
     {
       "name": "Cadeira Extensora",
@@ -210,7 +290,7 @@
     },
     {
       "name": "Agachamento Globet",
-      "img": "imagens/agachamento-globet-calice-.gif"
+      "img": "imagens/agachamento-globet-calice.gif"
     },
     {
       "name": "Agachamento no Caixote",
@@ -271,6 +351,30 @@
     {
       "name": "Stiff",
       "img": "imagens/stiff.gif"
+    },
+    {
+      "name": "Leg Press 45 Unilateral",
+      "img": "imagens/leg-press-45-unilateral.gif"
+    },
+    {
+      "name": "Mesa Flexora Unilateral",
+      "img": "imagens/mesa-flexora-unilateral.gif"
+    },
+    {
+      "name": "Panturrilha no Leg Press Unilateral",
+      "img": "imagens/panturrilha-no-leg-press-unilateral.gif"
+    },
+    {
+      "name": "Elevação Lateral de Perna Deitada",
+      "img": "imagens/elevacao-lateral-de-perna-deitada.gif"
+    },
+    {
+      "name": "Passada Lateral com Elástico",
+      "img": "imagens/passada-lateral-com-elastico.gif"
+    },
+    {
+      "name": "Abdução na Polia",
+      "img": "imagens/abducao-na-polia.gif"
     }
   ],
   "ombros": [
@@ -323,10 +427,6 @@
       "img": "imagens/elevacao-frontal-com-barra.gif"
     },
     {
-      "name": "Elevação Frontal (Polia)",
-      "img": "imagens/elevacao-frontal-na-polia.gif"
-    },
-    {
       "name": "Encolhimento de Ombros",
       "img": "imagens/encolhimento-de-ombros.gif"
     },
@@ -340,11 +440,35 @@
     },
     {
       "name": "Encolhimento no Cross (Polia Baixa)",
-      "img": "imagens/encolhimento-no-cross-na-polia-baixa-.gif"
+      "img": "imagens/encolhimento-no-cross-na-polia-baixa.gif"
     },
     {
       "name": "Face Pull",
       "img": "imagens/face-pull.gif"
+    },
+    {
+      "name": "Desenvolvimento Arnold Unilateral",
+      "img": "imagens/desenvolvimento-arnold-unilateral.gif"
+    },
+    {
+      "name": "Desenvolvimento com Halteres Sentado",
+      "img": "imagens/desenvolvimento-com-halteres-sentado.gif"
+    },
+    {
+      "name": "Elevação Lateral (Cabo)",
+      "img": "imagens/elevacao-lateral-com-cabo.gif"
+    },
+    {
+      "name": "Elevação Lateral Inclinado",
+      "img": "imagens/elevacao-lateral-inclinado.gif"
+    },
+    {
+      "name": "Elevação Lateral (Polia)",
+      "img": "imagens/elevacao-lateral-na-polia.gif"
+    },
+    {
+      "name": "Encolhimento com Halteres",
+      "img": "imagens/encolhimento-com-halteres.gif"
     }
   ],
   "bracos": [
@@ -449,23 +573,23 @@
       "img": "imagens/triceps-coice-com-halteres.gif"
     },
     {
-      "name": "Supino Fechado (Barra)",
-      "img": "imagens/supino-fechado-com-barra.gif"
+      "name": "Rosca Francesa Unilateral (Polia)",
+      "img": "imagens/rosca-francesa-unilateral-na-polia.gif"
     },
     {
-      "name": "Supino Fechado (Halteres)",
-      "img": "imagens/supino-fechado-com-halteres.gif"
+      "name": "Rosca Direta com Halteres",
+      "img": "imagens/rosca-direta-com-halteres.gif"
     },
     {
-      "name": "Supino no Cross",
-      "img": "imagens/supino-no-cross.gif"
-    },
-    {
-      "name": "Supino Pegada Fechada",
-      "img": "imagens/supino-pegada-fechada.gif"
+      "name": "Tríceps Mergulho (Banco)",
+      "img": "imagens/triceps-mergulho-banco.gif"
     }
   ],
   "abs": [
+    {
+      "name": "Abdominal Infra nas Paralelas",
+      "img": "imagens/abdominal-infra-nas-paralelas.gif"
+    },
     {
       "name": "Abdominal (Supra na Polia)",
       "img": "imagens/abdominal-supra-com-corda-na-polia-alta.gif"
@@ -495,14 +619,6 @@
       "img": "imagens/abdominal-infra.gif"
     },
     {
-      "name": "Abdominal Infra Solo",
-      "img": "imagens/abdominal-infra-solo.gif"
-    },
-    {
-      "name": "Abdominal Invertido",
-      "img": "imagens/abdominal-invertido.gif"
-    },
-    {
       "name": "Abdominal na Máquina",
       "img": "imagens/abdominal-na-maquina.gif"
     },
@@ -529,9 +645,25 @@
     {
       "name": "Roda Abdominal",
       "img": "imagens/roda-abdominal.gif"
+    },
+    {
+      "name": "Exercício Concha",
+      "img": "imagens/exercicio-concha.gif"
+    },
+    {
+      "name": "Exercício Hidrante",
+      "img": "imagens/exercicio-hidrante.gif"
     }
   ],
   "cardio": [
+    {
+      "name": "Bicicleta Ergométrica",
+      "img": "imagens/bicicleta-ergometrica.gif"
+    },
+    {
+      "name": "Esteira Inclinada",
+      "img": "imagens/corrida-na-esteira-inclinada-1.gif"
+    },
     {
       "name": "Esteira",
       "img": "imagens/esteira.gif"
@@ -545,17 +677,16 @@
       "img": "imagens/simulador-escada.gif"
     },
     {
-      "name": "Bicicleta Ergométrica",
-      "img": "imagens/bicicleta-ergometrica.gif"
-    },
-    {
       "name": "Elíptico",
       "img": "imagens/eliptico.gif"
     },
     {
       "name": "Pular Corda",
       "img": "imagens/pular-corda.gif"
+    },
+    {
+      "name": "Butt Kick",
+      "img": "imagens/butt-kick.gif"
     }
-  ],
-  "outros": []
+  ]
 }
