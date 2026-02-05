@@ -243,6 +243,14 @@
     {
       "name": "Simulador de Escada",
       "img": "imagens/simulador-escada.gif"
+    },
+    {
+      "name": "Bicicleta Ergométrica",
+      "img": "imagens/bicicleta-ergometrica.gif"
+    },
+    {
+      "name": "Elíptico",
+      "img": "imagens/elíptico.gif"
     }
   ]
 }
