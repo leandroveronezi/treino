@@ -1,0 +1,248 @@
+{
+  "peito": [
+    {
+      "name": "Supino Reto (Barra)",
+      "img": "imagens/supino-reto-com-barra-1.gif"
+    },
+    {
+      "name": "Supino com Halteres",
+      "img": "imagens/supino-reto-com-halteres-1.gif"
+    },
+    {
+      "name": "Supino Inclinado (Barra)",
+      "img": "imagens/supino-inclinado-com-barra.gif"
+    },
+    {
+      "name": "Voador / Peck Deck",
+      "img": "imagens/peck-deck.gif"
+    },
+    {
+      "name": "Flexão de Braço",
+      "img": "imagens/flexão-de-braço.gif"
+    },
+    {
+      "name": "Crossover (Polia)",
+      "img": "imagens/crossover-na-polia-baixa.gif"
+    }
+  ],
+  "costas": [
+    {
+      "name": "Puxada Alta (Aberta)",
+      "img": "imagens/puxada-alta-aberta.gif"
+    },
+    {
+      "name": "Puxada Alta (Pegada Fechada)",
+      "img": "imagens/puxada-na-polia-alta-com-pegada-fechada.webp"
+    },
+    {
+      "name": "Puxada Unilateral (Crossover)",
+      "img": "imagens/puxada-unilateral-no-crossover.gif"
+    },
+    {
+      "name": "Puxada (Máquina Articulada)",
+      "img": "imagens/puxada-na-máquina-articulada.gif"
+    },
+    {
+      "name": "Remada Baixa (Fechada)",
+      "img": "imagens/remada-baixa-fechada.gif"
+    },
+    {
+      "name": "Remada Baixa (Aberta)",
+      "img": "imagens/remada-baixa-aberta.gif"
+    },
+    {
+      "name": "Remada Curvada (Barra Pronada)",
+      "img": "imagens/remada-curvada-com-barra-pronada.gif"
+    },
+    {
+      "name": "Barra Fixa",
+      "img": "imagens/barra-fixa.gif"
+    },
+    {
+      "name": "Barra Fixa (Graviton)",
+      "img": "imagens/barra-fixa-no-graviton.gif"
+    },
+    {
+      "name": "Barra Fixa (Elásticos)",
+      "img": "imagens/barra-fixa-com-elásticos.gif"
+    },
+    {
+      "name": "Remada Alta (Cabo)",
+      "img": "imagens/remada-alta.webp"
+    },
+    {
+      "name": "Remada Articulada",
+      "img": "imagens/remada-articulada.webp"
+    },
+    {
+      "name": "Remada Cavalinho",
+      "img": "imagens/remada-cavalinho.webp"
+    },
+    {
+      "name": "Remada Unilateral",
+      "img": "imagens/remada-unilateral.webp"
+    }
+  ],
+  "pernas": [
+    {
+      "name": "Agachamento (Smith)",
+      "img": "imagens/agachamento-smith.gif"
+    },
+    {
+      "name": "Agachamento Hack",
+      "img": "imagens/agachamento-hack.gif"
+    },
+    {
+      "name": "Leg Press 45",
+      "img": "imagens/leg-press-45°.gif"
+    },
+    {
+      "name": "Cadeira Extensora",
+      "img": "imagens/cadeira-extensora.gif"
+    },
+    {
+      "name": "Cadeira Flexora",
+      "img": "imagens/cadeira-flexora.gif"
+    },
+    {
+      "name": "Mesa Flexora",
+      "img": "imagens/mesa-flexora.gif"
+    },
+    {
+      "name": "Adutora",
+      "img": "imagens/adutora.gif"
+    },
+    {
+      "name": "Passada",
+      "img": "imagens/passada.gif"
+    },
+    {
+      "name": "Panturrilha (Sentado)",
+      "img": "imagens/panturrilha-sentado.gif"
+    }
+  ],
+  "ombros": [
+    {
+      "name": "Desenvolvimento (Barra)",
+      "img": "imagens/desenvolvimento-de-ombros-com-barra.gif"
+    },
+    {
+      "name": "Desenvolvimento (Halteres)",
+      "img": "imagens/desenvolvimento-de-ombros-com-halteres.gif"
+    },
+    {
+      "name": "Desenvolvimento Arnold",
+      "img": "imagens/desenvolvimento-arnold-para-ombros.gif"
+    },
+    {
+      "name": "Elevação Lateral (Halteres)",
+      "img": "imagens/elevação-lateral-de-ombros-com-halteres.gif"
+    },
+    {
+      "name": "Elevação Unilateral (Polia)",
+      "img": "imagens/elevacao-unilateral-na-polia.gif"
+    },
+    {
+      "name": "Elevação Frontal (Polia)",
+      "img": "imagens/elevacao-frontal-com-barra-na-polia.gif"
+    },
+    {
+      "name": "Crucifixo Invertido (Halteres)",
+      "img": "imagens/crucifixo-invertido-com-halteres.gif"
+    },
+    {
+      "name": "Voador Invertido",
+      "img": "imagens/voador-invertido.gif"
+    },
+    {
+      "name": "Remada Alta (Cabo)",
+      "img": "imagens/remada-alta-no-cabo.gif"
+    },
+    {
+      "name": "Remada Alta (Smith)",
+      "img": "imagens/remada-alta-no-smith.gif"
+    }
+  ],
+  "bracos": [
+    {
+      "name": "Rosca Direta (Polia)",
+      "img": "imagens/rosca-direta-polia.gif"
+    },
+    {
+      "name": "Rosca Scott",
+      "img": "imagens/rosca-scott.webp"
+    },
+    {
+      "name": "Rosca Francesa",
+      "img": "imagens/rosca-francesa.gif"
+    },
+    {
+      "name": "Rosca Martelo",
+      "img": "imagens/rosca-martelo.webp"
+    },
+    {
+      "name": "Rosca Martelo (Corda)",
+      "img": "imagens/rosca-martelo-corda.gif"
+    },
+    {
+      "name": "Rosca Martelo (Cruzada)",
+      "img": "imagens/rosca-martelo-cruzada.gif"
+    },
+    {
+      "name": "Rosca Martelo (Inclinada)",
+      "img": "imagens/rosca-martelo-inclinada.gif"
+    },
+    {
+      "name": "Rosca Martelo (Máquina)",
+      "img": "imagens/rosca-martelo-na-máquina.gif"
+    },
+    {
+      "name": "Rosca Martelo (Peito Apoiado)",
+      "img": "imagens/rosca-martelo-com-peito-apoiado-no-banco-inclinado.gif"
+    },
+    {
+      "name": "Rosca Martelo (Alternada)",
+      "img": "imagens/rosca-martelo-com-halteres-alternada.gif"
+    },
+    {
+      "name": "Tríceps Pulley (Barra)",
+      "img": "imagens/triceps-pulley-barra.gif"
+    },
+    {
+      "name": "Tríceps Pulley (Corda)",
+      "img": "imagens/triceps-pulley-corda.gif"
+    },
+    {
+      "name": "Tríceps Testa (Polia)",
+      "img": "imagens/triceps-testa-na-polia.gif"
+    },
+    {
+      "name": "Rosca Testa",
+      "img": "imagens/rosca-testa.gif"
+    }
+  ],
+  "abs": [
+    {
+      "name": "Abdominal (Supra na Polia)",
+      "img": "imagens/abdominal-supra-com-corda-na-polia-alta.gif"
+    },
+    {
+      "name": "Prancha",
+      "img": "imagens/plancha.gif"
+    }
+  ],
+  "cardio": [
+    {
+      "name": "Esteira",
+      "img": "imagens/esteira.gif"
+    },
+    {
+      "name": "Corrida na Esteira (Inclinada)",
+      "img": "imagens/corrida-na-esteira-inclinada-1.gif"
+    },
+    {
+      "name": "Simulador de Escada",
+      "img": "imagens/simulador-escada.gif"
+    }
+  ]
+}

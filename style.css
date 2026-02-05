@@ -1,0 +1,480 @@
+        :root {
+            --primary: #FFD700;
+            /* Amarelo Ouro */
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --text: #ffffff;
+            --overlay: rgba(0, 0, 0, 0.9);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            padding-bottom: 80px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: #000;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        /* --- CONTAINER PRINCIPAL --- */
+        .container {
+            padding: 15px;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .date-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date-label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        #selectedDate {
+            width: auto;
+            padding: 8px 10px;
+            font-size: 0.95rem;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .btn-secondary {
+            padding: 10px 12px;
+            background: #1a1a1a;
+            color: var(--text);
+            border: 1px solid #444;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            white-space: nowrap;
+        }
+
+        .btn-secondary:active {
+            border-color: var(--primary);
+        }
+
+        .section-title {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            margin-top: 18px;
+        }
+
+        .section-list {
+            margin-bottom: 10px;
+        }
+
+        .summary {
+            margin-bottom: 10px;
+        }
+
+        .summary-card {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .summary-title {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .summary-row:first-of-type {
+            border-top: none;
+        }
+
+        /* --- CARTÕES DO TREINO (LISTA) --- */
+        .workout-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid var(--primary);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            /* Indica que é clicável */
+            transition: background 0.2s;
+        }
+
+        .workout-card:active {
+            background-color: #333;
+        }
+
+        .workout-thumb {
+            width: 60px;
+            height: 60px;
+            background-color: #fff;
+            border-radius: 8px;
+            object-fit: contain;
+            padding: 2px;
+            margin-right: 15px;
+        }
+
+        .workout-info {
+            flex: 1;
+            pointer-events: none;
+            /* Deixa o clique passar para o card */
+        }
+
+        .workout-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+        }
+
+        .workout-info p {
+            margin: 0;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .btn-delete {
+            background: none;
+            border: none;
+            color: #ff5555;
+            font-size: 1.2rem;
+            padding: 10px;
+            z-index: 5;
+        }
+
+        .btn-move {
+            background: none;
+            border: 1px solid #444;
+            color: var(--primary);
+            font-size: 1.1rem;
+            padding: 8px 10px;
+            border-radius: 10px;
+            margin-right: 6px;
+        }
+
+        /* --- BOTÕES --- */
+        .btn-main {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary);
+            color: #000;
+            font-weight: bold;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            cursor: pointer;
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            z-index: 20;
+        }
+
+        .btn-finish {
+            width: 100%;
+            padding: 12px;
+            background: #333;
+            color: var(--text);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* --- MODAL (CATÁLOGO) --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg);
+            z-index: 50;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-header {
+            padding: 15px;
+            background: #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 60;
+        }
+
+        .catalog-search {
+            padding: 10px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #222;
+        }
+
+        .catalog-search input {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        /* ABAS DE CATEGORIA */
+        .category-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px;
+            background: #1a1a1a;
+            white-space: nowrap;
+        }
+
+        .cat-chip {
+            padding: 8px 15px;
+            background: #333;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        .cat-chip.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: bold;
+            border-color: var(--primary);
+        }
+
+        /* GRID DE APARELHOS */
+        .visual-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 15px;
+        }
+
+        .visual-card {
+            background: #252525;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid #333;
+            transition: transform 0.1s;
+        }
+
+        .visual-card:active {
+            transform: scale(0.95);
+            border-color: var(--primary);
+        }
+
+        .visual-img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            background: #fff;
+        }
+
+        .visual-name {
+            padding: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* --- MODAL DE DETALHES (PESO) --- */
+        .details-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 70;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-modal.active {
+            display: flex;
+        }
+
+        .details-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            width: 85%;
+            max-width: 400px;
+            border: 1px solid var(--primary);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .input-col {
+            flex: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .suggestion {
+            background: #2a2a2a;
+            color: var(--primary);
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        .charts-content {
+            padding: 15px;
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .chart-controls select {
+            flex: 1;
+            padding: 10px;
+            background: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+        }
+
+        .chart-legend {
+            margin-top: 10px;
+            color: #aaa;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .history-content {
+            padding: 15px;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .history-item {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 12px;
+            cursor: pointer;
+        }
+
+        .history-item:active {
+            border-color: var(--primary);
+        }
+
+        .history-date {
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .history-meta {
+            color: #aaa;
+            font-size: 0.9rem;
+            display: grid;
+            gap: 4px;
+        }
