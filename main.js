@@ -142,6 +142,76 @@ function migrateLegacyIfNeeded() {
     localStorage.removeItem('v5_cardio');
 }
 
+// --- NOTIFICAÇÃO DE ATUALIZAÇÃO ---
+function showUpdateNotification() {
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        z-index: 10000;
+        max-width: 300px;
+        font-family: Arial, sans-serif;
+        animation: slideIn 0.3s ease-out;
+    `;
+
+    notification.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <strong>🚀 Nova versão disponível!</strong><br>
+                <small style="opacity: 0.9;">Clique para atualizar</small>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" style="
+                background: none;
+                border: none;
+                color: white;
+                font-size: 18px;
+                cursor: pointer;
+                padding: 0;
+                margin-left: 10px;
+            ">×</button>
+        </div>
+    `;
+
+    // Adicionar estilo de animação
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Adicionar evento de clique para atualizar
+    notification.addEventListener('click', () => {
+        // Enviar mensagem para o Service Worker pular espera
+        if (navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+        }
+        // Recarregar a página após um pequeno delay
+        setTimeout(() => {
+            window.location.reload();
+        }, 100);
+    });
+
+    // Adicionar ao DOM
+    document.body.appendChild(notification);
+
+    // Remover automaticamente após 10 segundos
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 10000);
+}
+
 // --- INICIALIZAÇÃO ---
 document.addEventListener('DOMContentLoaded', async () => {
     // Registrar Service Worker para PWA
@@ -149,6 +219,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const registration = await navigator.serviceWorker.register('./sw.js');
             console.log('Service Worker registrado:', registration);
+
+            // Detectar atualizações do Service Worker
+            registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                console.log('[SW] Nova versão detectada, instalando...');
+
+                newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        // Nova versão disponível
+                        showUpdateNotification();
+                    }
+                });
+            });
+
+            // Escutar mensagens do Service Worker
+            navigator.serviceWorker.addEventListener('message', event => {
+                console.log('[SW] Mensagem recebida:', event.data);
+            });
+
         } catch (error) {
             console.log('Falha ao registrar Service Worker:', error);
         }
