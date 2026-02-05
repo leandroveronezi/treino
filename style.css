@@ -104,8 +104,9 @@
             cursor: pointer;
             font-size: 0.75rem;
             white-space: nowrap;
-            flex: 1;
+            flex: 1 1 auto;
             min-width: 70px;
+            max-width: 120px;
             text-align: center;
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.2s, border-color 0.2s;
@@ -334,7 +335,7 @@
 
         .catalog-search input {
             width: 100%;
-            padding: 10px 35px 10px 12px;
+            padding: 10px 40px 10px 12px;
             background: #333;
             border: 1px solid #555;
             color: white;
@@ -347,7 +348,7 @@
             appearance: none;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>');
             background-repeat: no-repeat;
-            background-position: right 10px center;
+            background-position: right 12px center;
             background-size: 16px;
         }
 
@@ -465,12 +466,14 @@
 
         .input-row {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin: 15px 0;
+            flex-wrap: wrap;
         }
 
         .input-col {
             flex: 1;
+            min-width: 80px;
         }
 
         input {
@@ -481,7 +484,7 @@
             color: white;
             border-radius: 8px;
             text-align: center;
-            font-size: 1rem;
+            font-size: 0.9rem;
             box-sizing: border-box;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -614,9 +617,11 @@
             .btn-secondary {
                 font-size: 0.7rem;
                 padding: 5px 6px;
-                min-width: 60px;
+                min-width: 55px;
+                max-width: 100px;
                 min-height: 28px;
                 border-radius: 6px;
+                flex: 1 1 auto;
             }
 
             .catalog-search {
@@ -624,7 +629,7 @@
             }
 
             .catalog-search input {
-                padding: 8px 30px 8px 10px;
+                padding: 8px 35px 8px 10px;
                 font-size: 0.85rem;
             }
 
@@ -664,6 +669,15 @@
             .input-row {
                 flex-direction: column;
                 gap: 8px;
+            }
+
+            .input-col {
+                min-width: auto;
+            }
+
+            input {
+                font-size: 0.85rem;
+                padding: 10px 6px;
             }
         }
 
