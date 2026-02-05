@@ -23,6 +23,10 @@ class CustomDialog {
         // Dialog container
         this.dialog = document.createElement('div');
         this.dialog.className = 'custom-dialog';
+        // Evitar que cliques no diálogo fechem o modal
+        this.dialog.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
 
         // Título
         const title = document.createElement('div');
@@ -51,6 +55,10 @@ class CustomDialog {
         // Evento de clique no overlay para fechar
         this.overlay.addEventListener('click', (e) => {
             if (e.target === this.overlay) {
+                if (this.resolvePromise) {
+                    this.resolvePromise(false);
+                    this.resolvePromise = null;
+                }
                 this.hide();
             }
         });
@@ -58,6 +66,10 @@ class CustomDialog {
         // Evento de tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && this.overlay.classList.contains('active')) {
+                if (this.resolvePromise) {
+                    this.resolvePromise(false);
+                    this.resolvePromise = null;
+                }
                 this.hide();
             }
         });
@@ -71,6 +83,11 @@ class CustomDialog {
             cancelText = 'Cancelar',
             type = 'confirm' // 'confirm', 'alert', 'prompt'
         } = options;
+
+        // Se já houver um diálogo aberto, rejeitar a promessa anterior
+        if (this.resolvePromise) {
+            this.resolvePromise(false);
+        }
 
         return new Promise((resolve) => {
             this.resolvePromise = resolve;
@@ -88,7 +105,8 @@ class CustomDialog {
                 const okBtn = document.createElement('button');
                 okBtn.className = 'custom-dialog-btn confirm';
                 okBtn.textContent = 'OK';
-                okBtn.onclick = () => {
+                okBtn.onclick = (e) => {
+                    e.stopPropagation();
                     this.hide();
                     resolve(true);
                 };
@@ -98,7 +116,8 @@ class CustomDialog {
                 const cancelBtn = document.createElement('button');
                 cancelBtn.className = 'custom-dialog-btn cancel';
                 cancelBtn.textContent = cancelText;
-                cancelBtn.onclick = () => {
+                cancelBtn.onclick = (e) => {
+                    e.stopPropagation();
                     this.hide();
                     resolve(false);
                 };
@@ -107,7 +126,8 @@ class CustomDialog {
                 const confirmBtn = document.createElement('button');
                 confirmBtn.className = 'custom-dialog-btn confirm';
                 confirmBtn.textContent = confirmText;
-                confirmBtn.onclick = () => {
+                confirmBtn.onclick = (e) => {
+                    e.stopPropagation();
                     this.hide();
                     resolve(true);
                 };
@@ -118,7 +138,7 @@ class CustomDialog {
 
             // Mostrar dialog
             this.overlay.classList.add('active');
-            
+
             // Foco no primeiro botão
             setTimeout(() => {
                 const firstBtn = buttonsContainer.querySelector('button');
@@ -129,10 +149,8 @@ class CustomDialog {
 
     hide() {
         this.overlay.classList.remove('active');
-        if (this.resolvePromise) {
-            this.resolvePromise(false);
-            this.resolvePromise = null;
-        }
+        // Não rejeitamos a promessa aqui para evitar conflitos
+        // A promessa já é resolvida nos manipuladores de clique
     }
 
     // Métodos de conveniência
@@ -149,10 +167,10 @@ class CustomDialog {
 const customDialog = new CustomDialog();
 
 // Substituir o confirm nativo globalmente (opcional)
-window.customConfirm = function(message, title) {
+window.customConfirm = function (message, title) {
     return customDialog.confirm(message, title);
 };
 
-window.customAlert = function(message, title) {
+window.customAlert = function (message, title) {
     return customDialog.alert(message, title);
 };

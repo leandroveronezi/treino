@@ -794,8 +794,16 @@ function selectHistoryDate(date) {
 }
 
 function deleteHistoryDay(date) {
+
+    console.log(`deleteHistoryDay - date: ${date}`);
+
     customConfirm(`Tem certeza que deseja excluir todos os dados do dia ${date}?`, "Excluir Dia").then(confirmed => {
+
+        console.log(`deleteHistoryDay - confirmed: ${confirmed}`);
+
         if (confirmed) {
+
+
             console.log(`Excluindo dia: ${date}`);
 
             // Remover de todos os storages
