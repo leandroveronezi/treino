@@ -564,19 +564,23 @@ function formatEntrySubtitle(item) {
 }
 
 function removeItem(id) {
-    if (confirm("Remover este exercício?")) {
-        dayDoneEntries = dayDoneEntries.filter(i => i.id !== id);
-        saveDay();
-        renderAll();
-    }
+    customConfirm("Remover este exercício?").then(confirmed => {
+        if (confirmed) {
+            dayDoneEntries = dayDoneEntries.filter(i => i.id !== id);
+            saveDay();
+            renderAll();
+        }
+    });
 }
 
 function removePlanItem(id) {
-    if (confirm("Remover este item do plano?")) {
-        dayPlanEntries = dayPlanEntries.filter(i => i.id !== id);
-        saveDay();
-        renderAll();
-    }
+    customConfirm("Remover este item do plano?").then(confirmed => {
+        if (confirmed) {
+            dayPlanEntries = dayPlanEntries.filter(i => i.id !== id);
+            saveDay();
+            renderAll();
+        }
+    });
 }
 
 function saveDay() {
@@ -713,10 +717,13 @@ function estimateCardioCalories(entry, bodyWeightKg) {
 }
 
 function clearDone() {
-    if (!confirm('Deseja limpar a lista FEITO desta data?')) return;
-    dayDoneEntries = [];
-    saveDay();
-    renderAll();
+    customConfirm('Deseja limpar a lista FEITO desta data?').then(confirmed => {
+        if (confirmed) {
+            dayDoneEntries = [];
+            saveDay();
+            renderAll();
+        }
+    });
 }
 
 function openHistory() {
@@ -732,6 +739,8 @@ function renderHistoryList() {
     const listEl = document.getElementById('historyList');
     const historyByDay = readJsonStorage(STORAGE.historyByDay, {});
     const keys = Object.keys(historyByDay).sort((a, b) => b.localeCompare(a));
+
+    console.log('renderHistoryList - keys encontradas:', keys);
 
     if (keys.length === 0) {
         listEl.innerHTML = '<p style="text-align:center;color:#777;margin-top:20px;">Sem histórico ainda.</p>';
@@ -760,24 +769,85 @@ function renderHistoryList() {
         const total = entries.length;
 
         return `
-                    <div class="history-item" onclick="selectHistoryDate('${date}')">
-                        <div class="history-date">${date}</div>
-                        <div class="history-meta">
-                            <div>Itens: <strong>${total}</strong></div>
-                            <div>Volume: <strong>${Math.round(volume)}</strong></div>
-                            <div>Cardio: <strong>${Math.round(cardioTime)} min</strong> (${cardioDistance.toFixed(1)} km)</div>
+                    <div class="history-item">
+                        <div class="history-content" onclick="selectHistoryDate('${date}')">
+                            <div class="history-date">${date}</div>
+                            <div class="history-meta">
+                                <div>Itens: <strong>${total}</strong></div>
+                                <div>Volume: <strong>${Math.round(volume)}</strong></div>
+                                <div>Cardio: <strong>${Math.round(cardioTime)} min</strong> (${cardioDistance.toFixed(1)} km)</div>
+                            </div>
                         </div>
+                        <button class="btn-delete-history" onclick="deleteHistoryDay('${date}')" title="Excluir este dia">🗑️</button>
                     </div>
                 `;
     }).join('');
 
     listEl.innerHTML = itemsHtml;
+    console.log('renderHistoryList - HTML atualizado');
 }
 
 function selectHistoryDate(date) {
     setSelectedDate(date);
     closeHistory();
     loadDay();
+}
+
+function deleteHistoryDay(date) {
+    customConfirm(`Tem certeza que deseja excluir todos os dados do dia ${date}?`, "Excluir Dia").then(confirmed => {
+        if (confirmed) {
+            console.log(`Excluindo dia: ${date}`);
+
+            // Remover de todos os storages
+            const doneByDay = readJsonStorage(STORAGE.doneByDay, {});
+            const planByDay = readJsonStorage(STORAGE.planByDay, {});
+            const historyByDay = readJsonStorage(STORAGE.historyByDay, {});
+            const bodyWeightByDay = readJsonStorage(SETTINGS.bodyWeightByDay, {});
+
+            console.log('Antes da exclusão:', {
+                doneByDay: Object.keys(doneByDay),
+                planByDay: Object.keys(planByDay),
+                historyByDay: Object.keys(historyByDay),
+                bodyWeightByDay: Object.keys(bodyWeightByDay)
+            });
+
+            delete doneByDay[date];
+            delete planByDay[date];
+            delete historyByDay[date];
+            delete bodyWeightByDay[date];
+
+            console.log('Depois da exclusão:', {
+                doneByDay: Object.keys(doneByDay),
+                planByDay: Object.keys(planByDay),
+                historyByDay: Object.keys(historyByDay),
+                bodyWeightByDay: Object.keys(bodyWeightByDay)
+            });
+
+            writeJsonStorage(STORAGE.doneByDay, doneByDay);
+            writeJsonStorage(STORAGE.planByDay, planByDay);
+            writeJsonStorage(STORAGE.historyByDay, historyByDay);
+            writeJsonStorage(SETTINGS.bodyWeightByDay, bodyWeightByDay);
+
+            // Forçar uma nova leitura para verificar se a exclusão persistiu
+            setTimeout(() => {
+                const historyCheck = readJsonStorage(STORAGE.historyByDay, {});
+                console.log('Verificação após gravação - historyByDay keys:', Object.keys(historyCheck));
+
+                // Se o dia excluído estava selecionado, limpar a tela
+                if (getSelectedDate() === date) {
+                    dayDoneEntries = [];
+                    dayPlanEntries = [];
+                    document.getElementById('bodyWeight').value = '';
+                    renderAll();
+                }
+
+                // Atualizar o histórico
+                renderHistoryList();
+
+                customAlert(`Dia ${date} excluído com sucesso!`, "Sucesso");
+            }, 100);
+        }
+    });
 }
 
 function openCharts() {
