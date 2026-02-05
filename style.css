@@ -86,6 +86,41 @@
             min-width: 80px;
         }
 
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .btn-nav {
+            flex: 1;
+            padding: 6px 8px;
+            background: #2a2a2a;
+            color: var(--text);
+            border: 1px solid #444;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.2s, border-color 0.2s;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .btn-nav:not(:disabled):active {
+            background-color: #333;
+            border-color: var(--primary);
+        }
+
         .top-actions {
             display: flex;
             gap: 4px;
@@ -607,6 +642,18 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 4px;
+            }
+
+            .nav-buttons {
+                gap: 4px;
+                margin-top: 6px;
+            }
+
+            .btn-nav {
+                font-size: 0.7rem;
+                padding: 5px 6px;
+                min-height: 28px;
+                border-radius: 6px;
             }
 
             .top-actions {
