@@ -971,33 +971,81 @@ function drawChart(series, type) {
 
 // --- FUNÇÕES DE NAVEGAÇÃO ENTRE DIAS ---
 function navigateToPreviousDay() {
-    const currentDate = new Date(getSelectedDate());
-    currentDate.setDate(currentDate.getDate() - 1);
-    const newDate = `${currentDate.getFullYear()}-${pad2(currentDate.getMonth() + 1)}-${pad2(currentDate.getDate())}`;
-    setSelectedDate(newDate);
-    loadDay();
+    const selectedDate = getSelectedDate();
+    const previousDate = getPreviousWorkoutDate(selectedDate);
+
+    if (previousDate) {
+        setSelectedDate(previousDate);
+        loadDay();
+    }
+}
+
+function getPreviousWorkoutDate(currentDate) {
+    const doneByDay = readJsonStorage(STORAGE.doneByDay, {});
+    const planByDay = readJsonStorage(STORAGE.planByDay, {});
+
+    // Combinar todas as datas que têm treinos ou planos
+    const allDates = new Set([
+        ...Object.keys(doneByDay),
+        ...Object.keys(planByDay)
+    ]);
+
+    // Converter para array e ordenar
+    const sortedDates = Array.from(allDates).sort();
+
+    // Encontrar o índice da data atual
+    const currentIndex = sortedDates.indexOf(currentDate);
+
+    // Retornar a data anterior se existir
+    return currentIndex > 0 ? sortedDates[currentIndex - 1] : null;
 }
 
 function navigateToNextDay() {
-    const currentDate = new Date(getSelectedDate());
-    currentDate.setDate(currentDate.getDate() + 1);
-    const newDate = `${currentDate.getFullYear()}-${pad2(currentDate.getMonth() + 1)}-${pad2(currentDate.getDate())}`;
-    setSelectedDate(newDate);
-    loadDay();
+    const selectedDate = getSelectedDate();
+    const nextDate = getNextWorkoutDate(selectedDate);
+
+    if (nextDate) {
+        setSelectedDate(nextDate);
+        loadDay();
+    }
+}
+
+function getNextWorkoutDate(currentDate) {
+    const doneByDay = readJsonStorage(STORAGE.doneByDay, {});
+    const planByDay = readJsonStorage(STORAGE.planByDay, {});
+
+    // Combinar todas as datas que têm treinos ou planos
+    const allDates = new Set([
+        ...Object.keys(doneByDay),
+        ...Object.keys(planByDay)
+    ]);
+
+    // Converter para array e ordenar
+    const sortedDates = Array.from(allDates).sort();
+
+    // Encontrar o índice da data atual
+    const currentIndex = sortedDates.indexOf(currentDate);
+
+    // Retornar a próxima data se existir e não for maior que hoje
+    const nextDate = currentIndex < sortedDates.length - 1 ? sortedDates[currentIndex + 1] : null;
+    const today = getTodayDateString();
+
+    return (nextDate && nextDate <= today) ? nextDate : null;
 }
 
 function updateNavigationButtons() {
-    const today = getTodayDateString();
     const selectedDate = getSelectedDate();
 
     const btnPrevDay = document.getElementById('btnPrevDay');
     const btnNextDay = document.getElementById('btnNextDay');
 
     if (btnPrevDay && btnNextDay) {
-        // Habilitar botão anterior sempre (pode navegar para datas passadas)
-        btnPrevDay.disabled = false;
+        // Verificar se existe data anterior com treinos
+        const previousDate = getPreviousWorkoutDate(selectedDate);
+        btnPrevDay.disabled = !previousDate;
 
-        // Habilitar botão próximo apenas se não for hoje
-        btnNextDay.disabled = (selectedDate >= today);
+        // Verificar se existe próxima data com treinos
+        const nextDate = getNextWorkoutDate(selectedDate);
+        btnNextDay.disabled = !nextDate;
     }
 }
