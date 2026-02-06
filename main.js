@@ -1009,11 +1009,19 @@ function getPreviousWorkoutDate(currentDate) {
     // Converter para array e ordenar
     const sortedDates = Array.from(allDates).sort();
 
+    console.log('getPreviousWorkoutDate - currentDate:', currentDate);
+    console.log('getPreviousWorkoutDate - sortedDates:', sortedDates);
+
     // Encontrar o índice da data atual
     const currentIndex = sortedDates.indexOf(currentDate);
 
+    console.log('getPreviousWorkoutDate - currentIndex:', currentIndex);
+
     // Retornar a data anterior se existir
-    return currentIndex > 0 ? sortedDates[currentIndex - 1] : null;
+    const result = currentIndex > 0 ? sortedDates[currentIndex - 1] : null;
+    console.log('getPreviousWorkoutDate - result:', result);
+
+    return result;
 }
 
 function navigateToNextDay() {
@@ -1039,14 +1047,25 @@ function getNextWorkoutDate(currentDate) {
     // Converter para array e ordenar
     const sortedDates = Array.from(allDates).sort();
 
+    console.log('getNextWorkoutDate - currentDate:', currentDate);
+    console.log('getNextWorkoutDate - sortedDates:', sortedDates);
+
     // Encontrar o índice da data atual
     const currentIndex = sortedDates.indexOf(currentDate);
+
+    console.log('getNextWorkoutDate - currentIndex:', currentIndex);
 
     // Retornar a próxima data se existir e não for maior que hoje
     const nextDate = currentIndex < sortedDates.length - 1 ? sortedDates[currentIndex + 1] : null;
     const today = getTodayDateString();
 
-    return (nextDate && nextDate <= today) ? nextDate : null;
+    console.log('getNextWorkoutDate - nextDate:', nextDate);
+    console.log('getNextWorkoutDate - today:', today);
+
+    const result = (nextDate && nextDate <= today) ? nextDate : null;
+    console.log('getNextWorkoutDate - result:', result);
+
+    return result;
 }
 
 function updateNavigationButtons() {
