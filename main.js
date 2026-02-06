@@ -345,11 +345,16 @@ function selectExercise(item, category) {
     const history = readJsonStorage(STORAGE.historyByExercise, {});
     if (editingType === 'strength') {
         const lastWeight = history[item.name]?.weight;
+        const lastDate = history[item.name]?.date;
         const weightInput = document.getElementById('newWeight');
         if (lastWeight) {
             weightInput.value = lastWeight;
             suggBox.style.display = 'block';
-            suggBox.innerHTML = `💡 Última vez: <strong>${lastWeight}kg</strong>`;
+            if (lastDate && lastDate !== getSelectedDate()) {
+                suggBox.innerHTML = `💡 Última vez: <strong>${lastWeight}kg</strong> em ${lastDate}`;
+            } else {
+                suggBox.innerHTML = `💡 Última vez: <strong>${lastWeight}kg</strong>`;
+            }
         } else {
             weightInput.value = '';
             suggBox.style.display = 'none';
@@ -357,11 +362,17 @@ function selectExercise(item, category) {
     } else {
         const lastTime = history[item.name]?.timeMin;
         const lastSpeed = history[item.name]?.speedKmh;
+        const lastDate = history[item.name]?.date;
         const timeInput = document.getElementById('newTimeMin');
         const speedInput = document.getElementById('newSpeedKmh');
         if (lastTime) timeInput.value = lastTime;
         if (lastSpeed) speedInput.value = lastSpeed;
-        suggBox.style.display = 'none';
+        if (lastTime && lastDate && lastDate !== getSelectedDate()) {
+            suggBox.style.display = 'block';
+            suggBox.innerHTML = `💡 Última vez: <strong>${lastTime} min</strong> em ${lastDate}`;
+        } else {
+            suggBox.style.display = 'none';
+        }
     }
 }
 
@@ -606,7 +617,11 @@ function syncHistory(date) {
         if (entry.type === 'strength') {
             const w = Number(entry.weight);
             if (!Number.isNaN(w) && w > 0) {
-                historyByExercise[entry.name] = { ...(historyByExercise[entry.name] || {}), weight: entry.weight };
+                historyByExercise[entry.name] = {
+                    ...(historyByExercise[entry.name] || {}),
+                    weight: entry.weight,
+                    date: entry.date
+                };
             }
         } else {
             const t = Number(entry.timeMin);
@@ -614,7 +629,8 @@ function syncHistory(date) {
             historyByExercise[entry.name] = {
                 ...(historyByExercise[entry.name] || {}),
                 timeMin: Number.isNaN(t) ? entry.timeMin : t,
-                speedKmh: Number.isNaN(v) ? entry.speedKmh : v
+                speedKmh: Number.isNaN(v) ? entry.speedKmh : v,
+                date: entry.date
             };
         }
     });
