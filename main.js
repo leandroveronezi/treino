@@ -633,6 +633,9 @@ function loadDay() {
     const savedWeight = getBodyWeight(date);
     bodyWeightInput.value = savedWeight || '';
 
+    // Atualizar estado dos botões de navegação
+    updateNavigationButtons();
+
     renderAll();
 }
 
@@ -964,4 +967,37 @@ function drawChart(series, type) {
             : `Último: ${Math.round(lastValue)}`;
 
     legend.innerText = label;
+}
+
+// --- FUNÇÕES DE NAVEGAÇÃO ENTRE DIAS ---
+function navigateToPreviousDay() {
+    const currentDate = new Date(getSelectedDate());
+    currentDate.setDate(currentDate.getDate() - 1);
+    const newDate = `${currentDate.getFullYear()}-${pad2(currentDate.getMonth() + 1)}-${pad2(currentDate.getDate())}`;
+    setSelectedDate(newDate);
+    loadDay();
+}
+
+function navigateToNextDay() {
+    const currentDate = new Date(getSelectedDate());
+    currentDate.setDate(currentDate.getDate() + 1);
+    const newDate = `${currentDate.getFullYear()}-${pad2(currentDate.getMonth() + 1)}-${pad2(currentDate.getDate())}`;
+    setSelectedDate(newDate);
+    loadDay();
+}
+
+function updateNavigationButtons() {
+    const today = getTodayDateString();
+    const selectedDate = getSelectedDate();
+
+    const btnPrevDay = document.getElementById('btnPrevDay');
+    const btnNextDay = document.getElementById('btnNextDay');
+
+    if (btnPrevDay && btnNextDay) {
+        // Habilitar botão anterior sempre (pode navegar para datas passadas)
+        btnPrevDay.disabled = false;
+
+        // Habilitar botão próximo apenas se não for hoje
+        btnNextDay.disabled = (selectedDate >= today);
+    }
 }
