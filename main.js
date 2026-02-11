@@ -340,7 +340,6 @@ function selectExercise(item, category) {
 
     const suggBox = document.getElementById('suggestionBox');
     document.getElementById('btnSave').innerText = editingMode === 'plan' ? 'Salvar no Plano' : 'Adicionar ao Treino';
-    renderDetailsInputs();
 
     const history = readJsonStorage(STORAGE.historyByExercise, {});
     if (editingType === 'strength') {
@@ -389,6 +388,7 @@ function selectExercise(item, category) {
             suggBox.style.display = 'none';
         }
     }
+    renderDetailsInputs();
 }
 
 // --- FUNÇÃO DE EDIÇÃO ---
@@ -405,7 +405,6 @@ function editItem(id) {
     openDetailsModal(item.name, item.img);
 
     document.getElementById('btnSave').innerText = 'Salvar Alterações';
-    renderDetailsInputs();
 
     // Preenche com os dados atuais
     if (editingType === 'strength') {
@@ -420,6 +419,7 @@ function editItem(id) {
     }
 
     document.getElementById('suggestionBox').style.display = 'none';
+    renderDetailsInputs();
 }
 
 function openDetailsModal(title, imgUrl) {
@@ -632,10 +632,25 @@ function renderPlan() {
 
 function formatEntrySubtitle(item) {
     if (item.type === 'cardio') {
+        const nameLower = (item.name || '').toLowerCase();
+        const hideDistSpeed = nameLower.includes('pular corda') || nameLower.includes('butt kick');
+        const isStairOrWalker = nameLower.includes('escada') || nameLower.includes('simulador') || (nameLower.includes('caminhada') && !nameLower.includes('esteira'));
+
         const t = item.timeMin ? `${item.timeMin} min` : '';
-        const v = item.speedKmh ? `${item.speedKmh} km/h` : '';
-        const d = item.distanceKm ? `${item.distanceKm} km` : '';
-        const s = item.steps ? `${item.steps} steps` : '';
+        let v = item.speedKmh ? `${item.speedKmh} km/h` : '';
+        let d = item.distanceKm ? `${item.distanceKm} km` : '';
+        let s = item.steps ? `${item.steps} steps` : '';
+
+        if (hideDistSpeed) {
+            v = '';
+            d = '';
+        } else if (isStairOrWalker) {
+            v = '';
+            d = '';
+        } else {
+            s = '';
+        }
+
         const parts = [t, d, s, v].filter(Boolean);
         return parts.join(' - ') || 'Cardio';
     }
