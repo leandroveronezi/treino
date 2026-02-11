@@ -669,10 +669,6 @@
       "img": "imagens/butt-kick.gif"
     },
     {
-      "name": "Corrida na Esteira (Inclinada)",
-      "img": "imagens/corrida-na-esteira-inclinada-1.gif"
-    },
-    {
       "name": "Elíptico",
       "img": "imagens/eliptico.gif"
     },
@@ -682,7 +678,7 @@
     },
     {
       "name": "Esteira Inclinada",
-      "img": "imagens/corrida-na-esteira-inclinada-1.gif"
+      "img": "imagens/esteira-inclinada.gif"
     },
     {
       "name": "Pular Corda",

@@ -362,14 +362,29 @@ function selectExercise(item, category) {
     } else {
         const lastTime = history[item.name]?.timeMin;
         const lastSpeed = history[item.name]?.speedKmh;
+        const lastDistance = history[item.name]?.distanceKm;
         const lastDate = history[item.name]?.date;
+
         const timeInput = document.getElementById('newTimeMin');
         const speedInput = document.getElementById('newSpeedKmh');
+        const distanceInput = document.getElementById('newDistanceKm');
+
         if (lastTime) timeInput.value = lastTime;
         if (lastSpeed) speedInput.value = lastSpeed;
+        if (lastDistance) distanceInput.value = lastDistance;
+
+        // --- NOVO: Steps ---
+        const lastSteps = history[item.name]?.steps;
+        const stepsInput = document.getElementById('newSteps');
+        if (lastSteps) stepsInput.value = lastSteps;
+
         if (lastTime && lastDate && lastDate !== getSelectedDate()) {
             suggBox.style.display = 'block';
-            suggBox.innerHTML = `💡 Última vez: <strong>${lastTime} min</strong> em ${lastDate}`;
+            let msg = `💡 Última vez: <strong>${lastTime} min</strong>`;
+            if (lastDistance) msg += ` e <strong>${lastDistance} km</strong>`;
+            if (lastSteps) msg += ` e <strong>${lastSteps} steps</strong>`;
+            msg += ` em ${lastDate}`;
+            suggBox.innerHTML = msg;
         } else {
             suggBox.style.display = 'none';
         }
@@ -398,8 +413,10 @@ function editItem(id) {
         document.getElementById('newReps').value = item.reps;
         document.getElementById('newWeight').value = item.weight;
     } else {
-        document.getElementById('newTimeMin').value = item.timeMin;
-        document.getElementById('newSpeedKmh').value = item.speedKmh;
+        document.getElementById('newTimeMin').value = item.timeMin || '';
+        document.getElementById('newSpeedKmh').value = item.speedKmh || '';
+        document.getElementById('newDistanceKm').value = item.distanceKm || '';
+        document.getElementById('newSteps').value = item.steps || '';
     }
 
     document.getElementById('suggestionBox').style.display = 'none';
@@ -421,9 +438,56 @@ function closeDetails() {
 function renderDetailsInputs() {
     const strength = document.getElementById('strengthInputs');
     const cardio = document.getElementById('cardioInputs');
+
     if (editingType === 'cardio') {
         strength.style.display = 'none';
         cardio.style.display = 'flex';
+
+        // Ocultar Distância e Velocidade para exercícios específicos
+        let currentName = '';
+        if (editingId) {
+            const source = editingMode === 'plan' ? dayPlanEntries : dayDoneEntries;
+            const item = source.find(i => i.id === editingId);
+            if (item) currentName = item.name;
+        } else if (currentSelection) {
+            currentName = currentSelection.name;
+        }
+
+        const nameLower = (currentName || '').toLowerCase();
+        const hideDistSpeed = nameLower.includes('pular corda') || nameLower.includes('butt kick');
+
+        const distInput = document.getElementById('newDistanceKm');
+        const speedInput = document.getElementById('newSpeedKmh');
+        const stepsInput = document.getElementById('newSteps');
+
+        // Seleciona o container .input-col
+        const distCol = distInput.closest('.input-col') || distInput.parentElement;
+        const speedCol = speedInput.closest('.input-col') || speedInput.parentElement;
+        const stepsCol = stepsInput.closest('.input-col') || stepsInput.parentElement;
+
+        const isStairOrWalker = nameLower.includes('escada') || nameLower.includes('simulador') || (nameLower.includes('caminhada') && !nameLower.includes('esteira'));
+
+        // Reset
+        if (distCol) distCol.style.display = '';
+        if (speedCol) speedCol.style.display = '';
+        if (stepsCol) stepsCol.style.display = 'none';
+
+        if (hideDistSpeed) {
+            if (distCol) distCol.style.display = 'none';
+            if (speedCol) speedCol.style.display = 'none';
+            distInput.value = '';
+            speedInput.value = '';
+        } else if (isStairOrWalker) {
+            if (distCol) distCol.style.display = 'none';
+            if (speedCol) speedCol.style.display = 'none';
+            if (stepsCol) stepsCol.style.display = '';
+            distInput.value = '';
+            speedInput.value = '';
+        } else {
+            if (stepsCol) stepsCol.style.display = 'none';
+            stepsInput.value = '';
+        }
+
     } else {
         strength.style.display = 'flex';
         cardio.style.display = 'none';
@@ -438,6 +502,8 @@ function confirmAdd() {
     const weight = document.getElementById('newWeight').value;
     const timeMin = document.getElementById('newTimeMin').value;
     const speedKmh = document.getElementById('newSpeedKmh').value;
+    const distanceKm = document.getElementById('newDistanceKm').value;
+    const steps = document.getElementById('newSteps').value;
 
     const target = editingMode === 'plan' ? dayPlanEntries : dayDoneEntries;
 
@@ -452,6 +518,8 @@ function confirmAdd() {
             } else {
                 target[index].timeMin = timeMin;
                 target[index].speedKmh = speedKmh;
+                target[index].distanceKm = distanceKm;
+                target[index].steps = steps;
             }
         }
     } else {
@@ -467,7 +535,7 @@ function confirmAdd() {
         };
 
         const entry = editingType === 'cardio'
-            ? { ...base, timeMin, speedKmh }
+            ? { ...base, timeMin, speedKmh, distanceKm, steps }
             : { ...base, sets, reps, weight };
 
         target.push(entry);
@@ -566,7 +634,9 @@ function formatEntrySubtitle(item) {
     if (item.type === 'cardio') {
         const t = item.timeMin ? `${item.timeMin} min` : '';
         const v = item.speedKmh ? `${item.speedKmh} km/h` : '';
-        const parts = [t, v].filter(Boolean);
+        const d = item.distanceKm ? `${item.distanceKm} km` : '';
+        const s = item.steps ? `${item.steps} steps` : '';
+        const parts = [t, d, s, v].filter(Boolean);
         return parts.join(' - ') || 'Cardio';
     }
 
@@ -626,10 +696,14 @@ function syncHistory(date) {
         } else {
             const t = Number(entry.timeMin);
             const v = Number(entry.speedKmh);
+            const d = Number(entry.distanceKm);
+            const s = Number(entry.steps);
             historyByExercise[entry.name] = {
                 ...(historyByExercise[entry.name] || {}),
                 timeMin: Number.isNaN(t) ? entry.timeMin : t,
                 speedKmh: Number.isNaN(v) ? entry.speedKmh : v,
+                distanceKm: Number.isNaN(d) ? entry.distanceKm : d,
+                steps: Number.isNaN(s) ? entry.steps : s,
                 date: entry.date
             };
         }
@@ -678,6 +752,11 @@ function renderSummary() {
 
     const cardioTime = cardio.reduce((acc, e) => acc + (Number(e.timeMin) || 0), 0);
     const cardioDistance = cardio.reduce((acc, e) => {
+        const dist = Number(e.distanceKm);
+        if (!Number.isNaN(dist) && dist > 0) {
+            return acc + dist;
+        }
+        // Fallback: calcula baseado em tempo e velocidade se não houver distância
         const t = Number(e.timeMin) || 0;
         const v = Number(e.speedKmh) || 0;
         return acc + (v * (t / 60));
@@ -724,13 +803,49 @@ function estimateCardioCalories(entry, bodyWeightKg) {
     const timeMin = Number(entry.timeMin) || 0;
     if (timeMin <= 0) return 0;
 
-    const speed = Number(entry.speedKmh) || 0;
-    const name = String(entry.name || '').toLowerCase();
+    const name = String(entry.name || '').trim();
+    const nameLower = name.toLowerCase();
 
-    let met = 6;
-    if (name.includes('escada')) met = 8.8;
-    else if (name.includes('corrida') || speed >= 8) met = 8.3;
-    else if (speed > 0 && speed < 6) met = 3.5;
+    // 1. Exceções: Exercícios fixos (sem distância/velocidade impactante ou sem inputs)
+    if (nameLower.includes('pular corda')) {
+        // Pular corda: Alto gasto (10-12 METs). Média 11.
+        return 11 * bodyWeightKg * (timeMin / 60);
+    }
+    if (nameLower.includes('butt kick')) {
+        // Butt kicks: Aeróbico vigoroso ~8 METs
+        return 8 * bodyWeightKg * (timeMin / 60);
+    }
+    if (nameLower.includes('escada')) {
+        // Simulador de escada ~9 METs
+        return 9 * bodyWeightKg * (timeMin / 60);
+    }
+
+    // 2. Exercícios baseados em distância/velocidade (Esteira, Elíptico, Bike)
+    let speed = Number(entry.speedKmh) || 0;
+    const distance = Number(entry.distanceKm) || 0;
+
+    // Se tiver distância e tempo, a velocidade real manda (sobrescreve a velocidade sugerida)
+    if (distance > 0 && timeMin > 0) {
+        speed = distance / (timeMin / 60);
+    }
+
+    let met = 6; // Base padrão moderada
+
+    if (speed > 0) {
+        // Tabela aproximada de METs por velocidade (km/h) para corrida/caminhada
+        if (speed < 5) met = 3.5;       // Caminhada leve
+        else if (speed < 7) met = 5;    // Caminhada rápida / Trote leve
+        else if (speed < 9) met = 8;    // Corrida leve (jogg)
+        else if (speed < 12) met = 10;  // Corrida moderada
+        else if (speed < 14) met = 12.5; // Corrida rápida
+        else met = 14;                  // Corrida muito rápida
+    } else {
+        // Sem velocidade, tenta inferir pelo nome do exercício
+        if (nameLower.includes('bicicleta') || nameLower.includes('ergométrica')) met = 7;
+        else if (nameLower.includes('elíptico')) met = 7;
+        else if (nameLower.includes('corrida')) met = 9;
+        else if (nameLower.includes('caminhada')) met = 3.5;
+    }
 
     return met * bodyWeightKg * (timeMin / 60);
 }
@@ -780,6 +895,9 @@ function renderHistoryList() {
 
         const cardioTime = cardio.reduce((acc, e) => acc + (Number(e.timeMin) || 0), 0);
         const cardioDistance = cardio.reduce((acc, e) => {
+            const dist = Number(e.distanceKm);
+            if (!Number.isNaN(dist) && dist > 0) return acc + dist;
+
             const t = Number(e.timeMin) || 0;
             const v = Number(e.speedKmh) || 0;
             return acc + (v * (t / 60));
